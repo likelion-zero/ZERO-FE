@@ -2,7 +2,7 @@
 const Album = ({title, genre}) => {
 
   return(
-    <div className="absolute top-1/2 left-1/2 -translate-1/2 flex flex-col justify-center items-center z-10">
+    <div className="flex flex-col justify-center items-center z-10">
       <div className="w-75 h-90 rounded-3xl flex flex-col p-4 bg-[#3b3b3b]/80 backdrop-blur-xs">
         <div className="relative flex-1 bg-[#d9d9d9] rounded-xl p-3">
 
