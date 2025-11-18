@@ -79,7 +79,8 @@ const AlbumStack = () => {
       <motion.div 
         className="relative w-70 h-70 bg-orange-100 rounded-2xl translate-y-30 -z-1"
         animate = {{
-          filter: isDragging ? 'blur(4px)' : 'blur(0px)'
+          filter: isDragging ? 'blur(4px)' : 'blur(0px)',
+          ease: "easeIn"
         }} 
       />
     </div>
