@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
-const WordInput = () => {
-    const [inputs, setInputs] = useState(Array(10).fill(""));
-
+const WordInput = ({ words, setWords }) => {
     const handleChange = (index,value) => {
-        const newInputs = [...inputs];
+        const newInputs = [...words];
         newInputs[index] = value;
-        setInputs(newInputs);
 
         // 마지막 입력시 자동 생성
-        if (index === inputs.length-1 && value !== ""){
-            setInputs([...newInputs, ""])
+        if (index === words.length-1 && value !== ""){
+            newInputs.push("");
         }
+
+        setWords(newInputs);
     };
 
     return (
@@ -21,7 +20,7 @@ const WordInput = () => {
             </label>
 
             <div className="flex flex-col gap-3">
-                {inputs.map((text, index) => (
+                {words.map((text, index) => (
                     <div key={index} className="flex items-center">
                         <span className="w-6 text-[15px] font-light text-[#262626] text-center mr-4 shrink-0">
                             {index+1}
