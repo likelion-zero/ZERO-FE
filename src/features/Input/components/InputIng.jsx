@@ -28,7 +28,7 @@ const InputIng = () => {
     const [selectedMood, setSelectedMood] = useState("");
 
     return (
-        <div className="w-full max-w-[351px] bg-white rounded-[12px] p-6 shadow-sm font-inter mx-auto flex flex-col jusitfy-center">
+        <div className="w-full max-w-[351px] bg-white rounded-[12px] p-6 shadow-sm font-inter mx-auto flex flex-col justify-center">
             <div className="mb-6">
                 <label className="text-[15px] font-light text-[#262626] block mb-3">이름</label>
 
