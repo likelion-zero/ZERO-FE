@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dropIcon from '@/assets/drop.svg';
 
 // 더미데이터
@@ -21,11 +21,12 @@ const Tag = ({ children, isSelected, onClick }) => {
     );
 }; 
 
-const InputIng = () => {
-    const [name, setName] = useState("");
-    const [language, setLanguage] = useState("English"); 
-    const [selectedGenre, setSelectedGenre] = useState("");
-    const [selectedMood, setSelectedMood] = useState("");
+const InputIng = ({
+    name, setName, 
+    language, setLanguage,
+    selectedGenre, setSelectedGenre,
+    selectedMood, setSelectedMood
+}) => {
 
     return (
         <div className="w-full max-w-[351px] bg-white rounded-[12px] p-6 shadow-sm font-inter mx-auto flex flex-col justify-center">
@@ -37,11 +38,11 @@ const InputIng = () => {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full p-2 bg-[#F5F5F5] text-black font-light rounded-xl focus:outline-none transition-all duration-150"  
+                        className="w-full h-[34px] p-4 bg-[#F5F5F5] text-black font-light rounded-xl focus:outline-none transition-all duration-150"  
                     />
                     <div className="relative w-full">
                         <button
-                            className="w-full p-2 bg-[#F5F5F5] text-black font-light rounded-xl flex items-center justify-center relative transition-all duration-150 hover:bg-gray-200"
+                            className="w-full h-[34px] bg-[#F5F5F5] text-black font-light rounded-xl flex items-center justify-center relative transition-all duration-150 hover:bg-gray-200"
                             onClick={() => setLanguage(language === "English" ? "korean" : "English")}
                         >
                             {language}
