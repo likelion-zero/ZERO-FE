@@ -47,7 +47,33 @@ const AlbumStack = () => {
   
   
   return(
-    <div className="relative w-full h-screen pb-23 flex justify-center items-center">
+    <div className="relative w-full h-auto flex justify-center items-center">
+      <motion.div
+        className="absolute w-70 h-70 bg-orange-100 rounded-2xl translate-y-24 z-0"
+        animate = {{
+          filter: isDragging ? 'blur(4px)' : 'blur(0px)',
+          ease: "easeIn"
+        }}
+      >
+        <motion.p 
+          className='absolute bottom-2 left-1/2 -translate-x-1/2 font-extralight text-4xl text-center text-white'
+          animate = {{
+            opacity: isDragging ? 0 : 1,
+            y: isDragging ? 0 : [0,-10,0],
+          }}
+          transition={{
+            operation: {duration : 0.2},
+            y:{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
+          >
+            ↑
+          </motion.p>
+      </motion.div>
+
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -70,20 +96,11 @@ const AlbumStack = () => {
             setIsDragging(false);
             handleDragEnd(event, info)
           }}
-          className='absolute inset-0 flex justify-center items-center'
+          className='absolute inset-0 flex justify-center items-center z-10'
         >
-          <Album {...albums[currentIndex]} />    
+          <Album {...albums[currentIndex]} />
         </motion.div>
       </AnimatePresence>
-      
-
-      <motion.div 
-        className="relative w-70 h-70 bg-orange-100 rounded-2xl translate-y-30 -z-1"
-        animate = {{
-          filter: isDragging ? 'blur(4px)' : 'blur(0px)',
-          ease: "easeIn"
-        }} 
-      />
     </div>
   )
 };
