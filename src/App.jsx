@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
-import Album from './features/MusicChart/components/Album';
-import AlbumStack from './features/MusicChart/components/AlbumStack';
-import LoadingPage from './pages/LoadingPage';
-import VocabularyPage from './pages/VocabularyPage';
+import Album from '@/features/MusicChart/components/Album';
+import AlbumStack from '@/features/MusicChart/components/AlbumStack';
+import LoadingPage from '@/pages/LoadingPage';
+import ChartPage from '@/pages/ChartPage';
+import VocabularyPage from '@/pages/VocabularyPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
 
         <Route path="/" element={<VocabularyPage />} />
         <Route path="/loading" element={<LoadingPage />} />
+        <Route path="/chart" element={<ChartPage />} />
       </Routes>
     </BrowserRouter>
   )
