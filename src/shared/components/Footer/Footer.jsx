@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate = useNavigate();
   return(
-    <div className="fixed bottom-0 w-full h-22 flex justify-around bg-[#262626]/95 z-999">
+    <div className="fixed bottom-0 w-full h-22 flex justify-around bg-[#262626]/95 blur-sm z-999">
       <button
         onClick={() => navigate('/playlist')}
         className="cursor-pointer"
