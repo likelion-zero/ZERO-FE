@@ -1,8 +1,8 @@
 // ToDo: 백엔드 api 연동해서 해당 단어들을 반영한 이미지를 생성할 것.
 
-const AlbumImage = () => {
+const AlbumImage = ({size=67}) => {
   return (
-    <div className="relative w-67 h-67 bg-[#d9d9d9] rounded-xl p-3">
+    <div className={`relative w-${size} h-${size} bg-[#d9d9d9] rounded-xl p-3`}>
       <div className="relative mt-2  text-4xl font-normal">
         apple
       </div>
