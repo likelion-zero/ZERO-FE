@@ -8,11 +8,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/create" element={<VocabularyPage />} />
-        <Route path="/loading" element={<LoadingPage />} />
-        
         {/* 404주소 home으로 리다이렉팅 */}
         <Route path="*" element={<Navigate to="/" replace />}/>
+
+        <Route path="/" element={<VocabularyPage />} />
+        <Route path="/loading" element={<LoadingPage />} />
       </Routes>
     </BrowserRouter>
   )
