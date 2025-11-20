@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Album from './Album';
+// ToDo: motion lint error 수정
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AlbumStack = () => {
@@ -46,7 +47,7 @@ const AlbumStack = () => {
   
   
   return(
-    <div className="relative w-full h-screen flex justify-center items-center">
+    <div className="relative w-full h-screen pb-23 flex justify-center items-center">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
