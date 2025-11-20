@@ -27,3 +27,24 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+/* 1. 크롬, 사파리, 신형 엣지 (WebKit 계열) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  appearance: none;
+  width: 0;            
+  height: 0;         
+  background: transparent;
+  border: none;      
+  box-shadow: none;   
+}
+
+/* 2. 파이어폭스 (Firefox) */
+input[type="range"]::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
