@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Album from './Album';
+import Album from '@/features/MusicChart/components/Album';
 // ToDo: motion lint error 수정
 import { motion, AnimatePresence } from 'framer-motion';
 
