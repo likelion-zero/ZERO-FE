@@ -1,7 +1,16 @@
 import AlbumStack from "@/features/MusicChart/components/AlbumStack";
 import Footer from "@/shared/components/Footer/Footer";
 import ReloadIcon from "@/shared/components/icons/Reload.svg"
+import { useEffect } from "react";
 const ChartPage = () => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <div className=" h-screen flex flex-col bg-[#111111]">
       {/* 헤더 영역 - 고정 높이 */}
