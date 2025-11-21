@@ -3,10 +3,19 @@ import MusicCard from "@/features/Playlist/components/MusicCard"
 import Footer from "@/shared/components/Footer/Footer";
 import { useEffect, useState } from "react";
 
+// 언어 옵션 정의
+const LANGUAGES = [
+  { value: "english", label: "ENG" },
+  { value: "chinese", label: "中國語" },
+  { value: "japanese", label: "日本語" },
+];
+
 const PlayListPage = () => {
-  const [songs, setSongs] = useState([]);
+  const [allSongs, setAllSongs] = useState([]);   // 원본 데이터
+  const [songs, setSongs] = useState([]);          // 필터된 데이터
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [languageIndex, setLanguageIndex] = useState(0);  // 현재 언어 인덱스
 
   const userId = 'jena';
 
@@ -15,7 +24,12 @@ const PlayListPage = () => {
       try{
         setIsLoading(true);
         const data = await getPlaylist(userId);
-        setSongs(data.songs);
+        setAllSongs(data.songs);
+        // 초기 필터 적용 (첫번째 언어로)
+        const initialFiltered = data.songs.filter(
+          song => song.language.value === LANGUAGES[0].value
+        );
+        setSongs(initialFiltered);
         setError(null);
       } catch(error){
         setError(error.message);
@@ -30,14 +44,28 @@ const PlayListPage = () => {
 
   const handleDelete = async (songId) => {
     try{
-      setSongs(prev => prev.filter(song => song.songId !== songId));
+      // 원본과 필터된 데이터 모두에서 삭제
+      setAllSongs(prev => prev.filter(song => song.song_id !== songId));
+      setSongs(prev => prev.filter(song => song.song_id !== songId));
 
       await deleteSong(userId, songId);
     }catch(error){
       alert('삭제에 실패했습니다.', error.message);
       const data = await getPlaylist(userId);
-      setSongs(data.songs);
+      setAllSongs(data.songs);
+      setSongs(data.songs.filter(
+        song => song.language.value === LANGUAGES[languageIndex].value
+      ));
     }
+  }
+
+  // 언어 순환 + 필터링
+  const handleLanguageToggle = () => {
+    const nextIndex = (languageIndex + 1) % LANGUAGES.length;
+    setLanguageIndex(nextIndex);
+
+    const selectedLanguage = LANGUAGES[nextIndex].value;
+    setSongs(allSongs.filter(song => song.language.value === selectedLanguage));
   }
 
   return (
@@ -45,8 +73,11 @@ const PlayListPage = () => {
       <header className="shrink-0 h-50">
         <div className="pt-16 flex gap-22 justify-between items-center">
           <p className="ml-7 font-medium text-4xl text-white">PlayList</p>
-          <button className="text-white mr-8">
-            Eng
+          <button
+            className="py-2 px-5 bg-orange-100 rounded-3xl text-2xl text-white mr-8"
+            onClick={handleLanguageToggle}
+          >
+            * {LANGUAGES[languageIndex].label}
           </button>
         </div>
         <div className="mt-5 text-orange-100 w-full flex items-center justify-end pr-7 border-b border-white">
