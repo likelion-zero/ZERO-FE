@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const Lyrics = ({ lyrics }) => {
+const Lyrics = ({ lyrics = [] }) => {
     const scrollRef = useRef(null);
     const [currentActiveIndex, setCurrentActiveIndex] = useState(0);
 
@@ -28,8 +28,7 @@ const Lyrics = ({ lyrics }) => {
     };
 
     const getLineStyle = (index) => {
-        const baseStyle = "transition-all duration-500 ease-in-out block";
-        // 내부 state인 currentActiveIndex를 사용
+        const baseStyle = "transition-all duration-500 ease-in-out block break-keep";
         if (index === currentActiveIndex) {
             return `${baseStyle} text-[#EF521F] font-bold text-[30px] opacity-90 blur-none leading-relaxed`;
         }
