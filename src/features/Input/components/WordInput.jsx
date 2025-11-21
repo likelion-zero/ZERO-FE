@@ -24,6 +24,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
             setShowDropdown(true); 
 
         } catch (error) {
+            console.error("단어 검색 중 오류가 발생했습니다:", error);
             setMeanings(["오류가 발생했습니다."]);
             setShowDropdown(true);
         }

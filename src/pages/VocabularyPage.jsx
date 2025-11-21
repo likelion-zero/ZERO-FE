@@ -93,6 +93,7 @@ const VocabularyPage = () => {
             }
 
         } catch (error) {
+            console.error("곡 생성 중 오류가 발생했습니다:", error);
             alert("곡 생성 중 오류가 발생했습니다.");
         }
     }

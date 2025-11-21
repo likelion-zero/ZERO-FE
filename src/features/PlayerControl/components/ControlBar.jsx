@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import PrevIcon from '@/shared/components/icons/prev.svg';
 import NextIcon from '@/shared/components/icons/next.svg';
@@ -10,20 +10,16 @@ import SoundHighIcon from '@/shared/components/icons/soundhigh.svg';
 const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
     const audioRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(runtime || 0);
     const [volume, setVolume] = useState(50);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(runtime);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        setCurrentTime(0);
-        setDuration(runtime);
-        setIsPlaying(false);
-        
         if (audioRef.current) {
             audioRef.current.currentTime = 0;
         }
-    }, [audioUrl, runtime]);
+    }, [currentTime]);
 
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
