@@ -5,6 +5,7 @@ import LoadingPage from '@/pages/LoadingPage';
 import ChartPage from '@/pages/ChartPage';
 import VocabularyPage from '@/pages/VocabularyPage';
 import PlayListPage from '@/pages/PlayListPage';
+import PlayerPage from '@/pages/PlayerPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/chart" element={<ChartPage />} />
         <Route path="/playlist" element={<PlayListPage />} />
+        <Route path="/player/:songId" element={<PlayerPage />} />
 
       </Routes>
     </BrowserRouter>
