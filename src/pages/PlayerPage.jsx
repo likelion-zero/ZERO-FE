@@ -6,7 +6,8 @@ import Lyrics from '@/features/Lyrics/components/Lyrics';
 import TIcon from '@/shared/components/icons/T';          
 import TFullIcon from '@/shared/components/icons/T_full'; 
 
-import { getSongDetail } from '@/api/playlist';
+import { get } from '@/shared/api/client';
+import { ENDPOINTS } from '@/shared/api/endpoints';
 
 const PlayerPage = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const PlayerPage = () => {
 
         const loadData = async () => {
             try {
-                const data = await getSongDetail(songId);
+                const data = await get(ENDPOINTS.GET_SONG_INFO(songId));
                 const parsedLyrics = data.lyrics ? data.lyrics.split('\n') : ["가사 정보가 없습니다."];
 
                 setSongData({
@@ -39,16 +40,17 @@ const PlayerPage = () => {
 
             } catch (error) {
                 console.error("곡 정보를 불러오는데 실패했습니다.", error);
-                navigate(-1);
+                navigate(-1); 
             } 
         };
 
         loadData();
     }, [songId, navigate]);
-
+    
     if (!songData) {
         return null;
     }
+
     return (
         <div 
             className="min-h-screen bg-[#F2F4F6] flex flex-col items-center relative font-inter overflow-hidden"
