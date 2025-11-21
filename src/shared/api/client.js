@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const apiClient = async (endpoint, options = {}) => {
   const url = `${BASE_URL}${endpoint}`;
@@ -28,7 +28,7 @@ export const apiClient = async (endpoint, options = {}) => {
   }
 };
 
-export const get = (endppoint) => apiClient(endpoint);
+export const get = (endpoint) => apiClient(endpoint);
 
 export const post = (endpoint, data) =>
   apiClient(endpoint, {
