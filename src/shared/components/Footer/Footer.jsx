@@ -7,7 +7,7 @@ const Footer = () => {
   const navigate = useNavigate();
   return(
     <div className="fixed bottom-0 w-full h-22 z-999">
-      <div className="absolute inset-0 bg-[#262626]/95 backdrop-blur-sm"/>
+      <div className="absolute inset-0 bg-[#262626]/95 backdrop-blur-[1px]"/>
       <div className="relative flex justify-around h-full items-center">
         <button
           onClick={() => navigate('/playlist')}

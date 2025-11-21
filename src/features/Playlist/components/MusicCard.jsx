@@ -16,20 +16,6 @@ const MusicCard = ({
   imageWords,
   onDelete
 }) => {
-  const dummy = {
-    songId,
-    title: "fruit Song",
-    language,
-    genre: "동요 | 신나는",
-    mood,
-    runtime: 90,
-    createdBy,
-    isFromChart,
-    historyCount,
-    imageWords: ["s", "t", "t", "t", "t", "t"],
-    onDelete
-  };
-
   const [isRevealed, setIsRevealed] = useState(false);
   const x = useMotionValue(0);
 
@@ -51,7 +37,6 @@ const MusicCard = ({
       onDelete();
     }
   }
-
 
 
   return (
