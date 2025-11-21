@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 
-import PrevIcon from '@/assets/prev.svg';
-import NextIcon from '@/assets/next.svg';
-import PlayIcon from '@/assets/play.svg';
-import PauseIcon from '@/assets/stop.svg'; 
-import SoundLowIcon from '@/assets/soundlow.svg';
-import SoundHighIcon from '@/assets/soundhigh.svg';
+import PrevIcon from '@/shared/components/icons/prev.svg';
+import NextIcon from '@/shared/components/icons/next.svg';
+import PlayIcon from '@/shared/components/icons/play.svg';
+import PauseIcon from '@/shared/components/icons/stop.svg'; 
+import SoundLowIcon from '@/shared/components/icons/soundlow.svg';
+import SoundHighIcon from '@/shared/components/icons/soundhigh.svg';
 
 const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
     const audioRef = useRef(null);
