@@ -13,8 +13,7 @@ const ChartPage = () => {
 
   return (
     <div className=" h-screen flex flex-col bg-[#111111]">
-      {/* 헤더 영역 - 고정 높이 */}
-      <header className="flex-shrink-0 h-28">
+      <header className="shrink-0 h-28">
         <div className="pt-16 flex gap-22 justify-center items-center">
           <p className="ml-7 font-medium text-4xl text-white">Music Chart</p>
           <button className="mr-8">
