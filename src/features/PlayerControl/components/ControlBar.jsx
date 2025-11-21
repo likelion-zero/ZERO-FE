@@ -15,6 +15,16 @@ const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
     const [duration, setDuration] = useState(runtime || 0);
     const [volume, setVolume] = useState(50);
 
+    useEffect(() => {
+        setCurrentTime(0);
+        setDuration(runtime);
+        setIsPlaying(false);
+        
+        if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+        }
+    }, [audioUrl, runtime]);
+
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
             setDuration(audioRef.current.duration);
