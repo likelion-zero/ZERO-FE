@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
-import TrashIcon from "@/shared/components/icons/Trash_light.svg"
+import Trash from "@/shared/components/icons/Trash"
 import AlbumImage from "@/shared/components/Album/AlbumImage";
 
 const MusicCard = ({
@@ -49,7 +49,7 @@ const MusicCard = ({
           onClick={handleDelete}
           className="w-full h-full flex flex-col items-center justify-center"
         >
-          <img src={TrashIcon} alt="삭제" />
+          <Trash />
         </button>
       </motion.div>
 
@@ -74,18 +74,18 @@ const MusicCard = ({
         
         <div className="ml-5 flex-1 flex flex-col justify-center gap-2">
           <h3 className="text-white text-base ">
-            {dummy.title}
+            {title}
           </h3>
 
           <p className="text-xs text-white">
-            {Math.floor(dummy.runtime /60)}: {dummy.runtime % 60}
+            {Math.floor(runtime /60)}: {runtime % 60}
           </p>
           <div className="flex justify-between">
             <p className="text-xs text-white">
-              {dummy.genre}
+              {genre}
             </p>
             <p className="text-white text-xs">
-              {dummy.imageWords.length} Words
+              {imageWords.length} Words
             </p>
           </div>
         </div>

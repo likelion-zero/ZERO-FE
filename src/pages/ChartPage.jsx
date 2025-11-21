@@ -1,6 +1,6 @@
 import AlbumStack from "@/features/MusicChart/components/AlbumStack";
 import Footer from "@/shared/components/Footer/Footer";
-import ReloadIcon from "@/shared/components/icons/Reload.svg"
+import Reload from "@/shared/components/icons/Reload"
 import { useEffect } from "react";
 const ChartPage = () => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const ChartPage = () => {
         <div className="pt-16 flex gap-22 justify-center items-center">
           <p className="ml-7 font-medium text-4xl text-white">Music Chart</p>
           <button className="mr-8">
-            <img src={ReloadIcon} alt="새로고침" />
+            <Reload />
           </button>
         </div>
       </header>
