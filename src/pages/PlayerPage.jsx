@@ -5,6 +5,7 @@ import ControlBar from '@/features/Playercontrol/components/ControlBar';
 import Lyrics from '@/features/Lyrics/components/Lyrics';
 import TIcon from '@/shared/components/icons/T.svg';          
 import TFullIcon from '@/shared/components/icons/T_full.svg'; 
+import AlbumImage from '@/shared/components/Album/AlbumImage';
 
 import { get } from '@/shared/api/client';
 import { ENDPOINTS } from '@/shared/api/endpoints';
@@ -73,9 +74,7 @@ const PlayerPage = () => {
                 
                 {!isLyricsMode ? (
                     <div className="flex-1 flex flex-col justify-center items-center gap-8 animate-fade-in">
-                        <div className="w-[320px] h-[320px] bg-white rounded-[20px] shadow-lg flex items-center justify-center text-gray-300 text-xl">
-                            Album Art
-                        </div>
+                        <AlbumImage className="w-[320px] h-[320px]" />
 
                         <div className="w-full flex items-center justify-between px-2 relative z-10">
                             <div className="text-left">
