@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import ControlBar from '@/features/Playercontrol/components/ControlBar';
 import Lyrics from '@/features/Lyrics/components/Lyrics';
-import TIcon from '@/shared/components/icons/T';          
-import TFullIcon from '@/shared/components/icons/T_full'; 
+import TIcon from '@/shared/components/icons/T.svg';          
+import TFullIcon from '@/shared/components/icons/T_full.svg'; 
 
 import { get } from '@/shared/api/client';
 import { ENDPOINTS } from '@/shared/api/endpoints';
