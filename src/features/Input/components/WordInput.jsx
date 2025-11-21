@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
-// 1. 테스트용 더미 데이터
-const DUMMY_DB = {
-    "apple": ["사과", "뉴욕의 별명", "IT 기업"],
-    "banana": ["바나나", "열대 과일", "노란색"],
-    "love": ["사랑", "애정", "좋아하다"],
-    "music": ["음악", "노래", "뮤직"]
-};
+import { get } from '@/shared/api/client';
+import { ENDPOINTS } from '@/shared/api/endpoints';
+
 
 const SingleWordInput = ({ index, value, onChange }) => {
     const [meanings, setMeanings] = useState([]); 
@@ -14,22 +10,28 @@ const SingleWordInput = ({ index, value, onChange }) => {
     
     const wrapperRef = useRef(null);
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (!value.trim()) return; 
 
-        const foundMeanings = DUMMY_DB[value.toLowerCase()];
+        try {
+            const response = await get(ENDPOINTS.GET_MEANING(value));
+            
+            if (response && response.meanings && response.meanings.length > 0) {
+                setMeanings(response.meanings);
+            } else {
+                setMeanings(["검색 결과가 없습니다."]);
+            }
+            setShowDropdown(true); 
 
-        if (foundMeanings) {
-            setMeanings(foundMeanings);
-        } else {
-            setMeanings(["검색 결과가 없습니다."]);
+        } catch (error) {
+            setMeanings(["오류가 발생했습니다."]);
+            setShowDropdown(true);
         }
-        setShowDropdown(true); 
     };
 
     const handleChange = (e) => {
         onChange(index, e.target.value);
-        setShowDropdown(false); 
+        setShowDropdown(false);
     };
 
     useEffect(() => {
@@ -60,8 +62,9 @@ const SingleWordInput = ({ index, value, onChange }) => {
                     onChange={handleChange}
                     className="w-full p-3 h-9 bg-[#F5F5F5] rounded-xl text-sm text-[#262626] focus:outline-none transition-all duration-150"
                 />
+                
                 {showDropdown && (
-                    <div className="absolute top-10 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg p-2 flex flex-col gap-1">
+                    <div className="absolute top-10 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg p-2 flex flex-col gap-1 z-50 max-h-40 overflow-y-auto">
                         {meanings.map((meaning, i) => (
                             <div 
                                 key={i}
@@ -79,7 +82,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
 
             <button 
                 onClick={handleSearch}
-                className="w-15 h-9 bg-white border border-[#EF521F] text-black text-[13px] font-medium rounded-xl"
+                className="w-15 h-9 bg-white border border-[#EF521F] text-black text-[13px] font-medium rounded-xl px-3 hover:bg-orange-50 transition-colors shrink-0"
             >
                 검색
             </button>
@@ -92,7 +95,11 @@ const WordInput = ({ words, setWords }) => {
         const newInputs = [...words];
         newInputs[index] = value;
 
-        if (index === words.length - 1 && value !== "") {
+        const isLastBox = index === words.length - 1;
+        const isNotEmpty = value !== "";
+        const isUnderLimit = words.length < 20;
+
+        if (isLastBox && isNotEmpty && isUnderLimit) {
             newInputs.push("");
         }
 
@@ -103,6 +110,7 @@ const WordInput = ({ words, setWords }) => {
         <div className="w-full max-w-[351px] bg-white rounded-[12px] p-6 shadow-sm font-inter mx-auto flex flex-col justify-center">
             <label className="text-[15px] font-light text-[#262626] block mb-3">
                 단어 
+                <span className="text-xs text-gray-400 ml-2">({words.length}/20)</span>
             </label>
 
             <div className="flex flex-col gap-3">

@@ -1,10 +1,10 @@
 import React from 'react';
 
 const InputDone = ({ 
-    name = "나의 첫 노래", 
-    language = "English", 
-    genre = "댄스", 
-    mood = "재밌는" 
+    name, 
+    language, 
+    genre, 
+    mood
 }) => {
     const labelStyle = "text-[15px] font-light text-[#262626] w-10 shrink-0";
     const valueBoxStyle = "flex-grow bg-[#F5F5F5] rounded-xl py-1 px-4 text-sm text-[#262626] font-regular text-center truncate flex items-center justify-center";

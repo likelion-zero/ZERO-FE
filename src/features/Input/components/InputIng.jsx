@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react'; 
 import dropIcon from '@/shared/components/icons/drop.svg';
 
-// 더미데이터
+const LANGUAGES = ['English', '中國語', '日本語'];
 const GENRES = ['클래식', '재즈', '발라드', '팝', '힙합', '댄스', '록'];
 const MOODS = ['신나는', '슬픈', '재밌는', '편안한', '박진감 넘치는', '잔잔한'];
 
 const Tag = ({ children, isSelected, onClick }) => {
-    // 기본 스타일
     const baseStyle = 'px-4 py-0.5 text-sm font-light text-[#262626] rounded-full border transition-colors duration-200 cursor-pointer whitespace-nowrap';
-    // 선택 시 
     const selectedStyle = 'bg-[#EF521F]/20 text-[#EF521F] border-[#EF521F] font-medium shadow-sm';
     
     return (
@@ -27,6 +25,13 @@ const InputIng = ({
     selectedGenre, setSelectedGenre,
     selectedMood, setSelectedMood
 }) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+    const handleSelectLanguage = (lang) => {
+        setLanguage(lang);
+        setIsDropdownOpen(false);
+    };
 
     return (
         <div className="w-full max-w-[351px] bg-white rounded-[12px] p-6 shadow-sm font-inter mx-auto flex flex-col justify-center">
@@ -43,15 +48,33 @@ const InputIng = ({
                     <div className="relative w-full">
                         <button
                             className="w-full h-[34px] bg-[#F5F5F5] text-black font-light rounded-xl flex items-center justify-center relative transition-all duration-150 hover:bg-gray-200"
-                            onClick={() => setLanguage(language === "English" ? "korean" : "English")}
+                            onClick={toggleDropdown}
                         >
                             {language}
                             <img 
                                 src={dropIcon} 
                                 alt="Dropdown Icon" 
-                                className={`absolute right-4 w-3 h-3 transition-transform duration-200 ${language === "korean" ? 'rotate-180' : ''}`} 
+                                className={`absolute right-4 w-3 h-3 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
                             />
                         </button>
+
+                        {isDropdownOpen && (
+                            <div className="absolute top-10 left-0 w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden flex flex-col">
+                                {LANGUAGES.map((lang) => (
+                                    <button
+                                        key={lang}
+                                        onClick={() => handleSelectLanguage(lang)}
+                                        className={`w-full text-left px-4 py-2 text-sm transition-colors
+                                            ${language === lang 
+                                                ? 'bg-orange-50 text-[#EF521F] font-medium'
+                                                : 'text-[#262626] hover:bg-gray-50' 
+                                            }`}
+                                    >
+                                        {lang}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
