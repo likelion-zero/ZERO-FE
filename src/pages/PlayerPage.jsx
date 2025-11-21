@@ -25,13 +25,20 @@ const PlayerPage = () => {
         if (touchStart - touchEnd < -100) navigate(-1);
     };
 
+    const parseLyrics = (lyricsText) => {
+        if (!lyricsText) return ["가사 정보가 없습니다."];
+        const splitResult = lyricsText.split(/[\n.,!?]\s*/);
+        const cleanLyrics = splitResult.filter(line => line.trim() !== "");
+        return cleanLyrics.length > 0 ? cleanLyrics : ["가사 정보가 없습니다."];
+    };
+
     useEffect(() => {
         if (!songId) return; 
 
         const loadData = async () => {
             try {
                 const data = await get(ENDPOINTS.GET_SONG_INFO(songId));
-                const parsedLyrics = data.lyrics ? data.lyrics.split('\n') : ["가사 정보가 없습니다."];
+                const parsedLyrics = parseLyrics(data.lyrics);
 
                 setSongData({
                     ...data,
