@@ -70,7 +70,7 @@ const MusicCard = ({
         }}
         style={{x}}
       >
-        <AlbumImage size="30" />
+        <AlbumImage words={imageWords} className="w-23 h-23" />
         
         <div className="ml-5 flex-1 flex flex-col justify-center gap-2">
           <h3 className="text-white text-base ">
@@ -82,7 +82,7 @@ const MusicCard = ({
           </p>
           <div className="flex justify-between">
             <p className="text-xs text-white">
-              {genre}
+              {genre.label} | {mood.label}
             </p>
             <p className="text-white text-xs">
               {imageWords.length} Words
