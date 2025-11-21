@@ -1,7 +1,16 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { useAlbumCoverLayout } from '@/shared/hooks/useAlbumCoverLayout';
 
-const AlbumImage = ({ words = null }) => {
+/**
+ * @param {string[]} words
+ * @param {string} className
+ * @returns {JSX.Element}
+ * 
+ * string 배열의 words를 입력받고, 사이즈 관련 className을 입력받습니다.
+ * className의 default 값은 w-67 h-67 입니다.
+ * example <AlbumImage className="w-30 h-30"/>
+ */
+const AlbumImage = ({ words = null, className = "w-67 h-67" }) => {
   const canvasRef = useRef(null);
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -80,10 +89,9 @@ const AlbumImage = ({ words = null }) => {
   }, [positions, isCalculating]);
 
   // 4. 렌더링
-  // w-67 h-67 클래스는 기본 사이즈를 잡아주지만,
   // 실제 사용시에는 부모 div의 크기를 따라가도록 w-full h-full을 이미지에 적용합니다.
   return (
-    <div className="relative w-67 h-67 bg-[#d9d9d9] rounded-xl overflow-hidden shrink-0">
+    <div className={`relative bg-[#d9d9d9] rounded-xl overflow-hidden shrink-0 ${className}`}>
       {/* 로딩 상태 */}
       {isCalculating && (
         <div className="absolute inset-0 flex items-center justify-center bg-[#d9d9d9]">
