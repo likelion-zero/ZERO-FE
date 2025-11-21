@@ -1,32 +1,39 @@
-import AddIcon from "@/shared/components/icons/Add.svg"
-import MusicIcon from "@/shared/components/icons/Music.svg"
-import SearchIcon from "@/shared/components/icons/Search.svg"
-import { useNavigate } from "react-router-dom";
+import Add from "@/shared/components/icons/Add";
+import Music from "@/shared/components/icons/Music";
+import Search from "@/shared/components/icons/Search";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
-  const navigate = useNavigate();
   return(
     <div className="fixed bottom-0 w-full h-22 z-999">
       <div className="absolute inset-0 bg-[#262626]/95 backdrop-blur-[1px]"/>
       <div className="relative flex justify-around h-full items-center">
-        <button
-          onClick={() => navigate('/playlist')}
+        <NavLink
+          to='/playlist'
           className="cursor-pointer"
         >
-          <img src={MusicIcon} alt="" />
-        </button>
-        <button
-          onClick={() => navigate('/vocabulary')}
+          {({ isActive }) => (
+            <Music color={isActive ? '#EF521F' : '#D9D9D9'}/>
+          )}
+        </NavLink>
+
+        <NavLink
+          to='/'
           className="cursor-pointer"
         >
-          <img src={AddIcon} alt="" />
-        </button>
-        <button
-          onClick={() => navigate('/chart')}
+          {({ isActive }) => (
+            <Add color={isActive ? '#EF521F' : '#D9D9D9'}/>
+          )}
+        </NavLink>
+
+        <NavLink
+          to='/chart'
           className="cursor-pointer"
         >
-          <img src={SearchIcon} alt="" />
-        </button>
+          {({ isActive }) => (
+            <Search color={isActive ? '#EF521F' : '#D9D9D9'}/>
+          )}
+        </NavLink>
       </div>
     </div>
   );

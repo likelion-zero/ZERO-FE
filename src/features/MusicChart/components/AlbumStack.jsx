@@ -52,8 +52,8 @@ const AlbumStack = () => {
         className="absolute w-70 h-70 bg-orange-100 rounded-2xl translate-y-24 z-0"
         animate = {{
           filter: isDragging ? 'blur(4px)' : 'blur(0px)',
-          ease: "easeIn"
         }}
+        transition={{ease: "easeIn"}}
       >
         <motion.p 
           className='absolute bottom-2 left-1/2 -translate-x-1/2 font-extralight text-4xl text-center text-white'
