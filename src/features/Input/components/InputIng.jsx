@@ -1,5 +1,5 @@
 import React from 'react';
-import dropIcon from '@/assets/drop.svg';
+import dropIcon from '@/shared/components/icons/drop.svg';
 
 // 더미데이터
 const GENRES = ['클래식', '재즈', '발라드', '팝', '힙합', '댄스', '록'];
