@@ -121,19 +121,13 @@ const PlayListPage = () => {
         <div className="pt-16 flex gap-22 justify-between items-center">
           <p className="ml-7 font-medium text-4xl text-white">PlayList</p>
           <button
-            className="py-2 px-5 bg-orange-100 rounded-3xl text-2xl text-white mr-8"
+            className="py-2 px-5 shrink-0 bg-orange-100 rounded-3xl text-2xl text-white mr-8"
             onClick={handleLanguageToggle}
           >
             * {LANGUAGES[languageIndex].label}
           </button>
         </div>
-        <div className="mt-5 text-orange-100 w-full flex items-center justify-end pr-7 border-b border-white">
-          <span className="text-xl">
-            Total 
-            <span className="pl-4 text-xl">{500} </span>
-            <span className="text-xs">Words</span>
-          </span>
-        </div>
+        
       </header>
 
       <main className="flex-1">

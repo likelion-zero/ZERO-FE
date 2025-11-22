@@ -1,9 +1,11 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Trash from "@/shared/components/icons/Trash"
 import AlbumImage from "@/shared/components/Album/AlbumImage";
 
 const MusicCard = ({
+  songId,
   title,
   genre,
   mood,
@@ -11,6 +13,7 @@ const MusicCard = ({
   imageWords = [],
   onDelete
 }) => {
+  const navigate = useNavigate();
   const [isRevealed, setIsRevealed] = useState(false);
   const x = useMotionValue(0);
 
@@ -31,7 +34,11 @@ const MusicCard = ({
     if(onDelete){
       onDelete();
     }
-  }
+  };
+
+  const handleCardClick = () => {
+    navigate(`/player/${songId}`);
+  };
 
 
   return (
@@ -50,11 +57,12 @@ const MusicCard = ({
 
       {/* 음악 카드 (드래그 가능) */}
       <motion.div
-        className="absolute top-0 left-0 w-full h-full bg-[#111] px-5 py-3 flex items-center"
+        className="absolute top-0 left-0 w-full h-full bg-[#111] px-5 py-3 flex items-center cursor-pointer"
         drag='x'
         dragConstraints={{left:-120, right:0}}
         dragElastic={0.1}
         onDrageEnd = {handleDragEnd}
+        onClick={handleCardClick}
         animate={{
           x: isRevealed ? -100 : 0
         }}
