@@ -68,6 +68,53 @@ const PlayListPage = () => {
     setSongs(allSongs.filter(song => song.language.value === selectedLanguage));
   }
 
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="flex h-full items-center justify-center text-white text-sm">
+          Loading playlist...
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="flex h-full items-center justify-center text-red-400 text-sm">
+          {error}
+        </div>
+      );
+    }
+
+    if (songs.length === 0) {
+      return (
+        <div className="flex h-full items-center justify-center text-gray-400 text-sm">
+          No songs available for the selected language.
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex-1 divide-y divide-white/10 overflow-y-auto">
+        {songs.map((song) => (
+          <MusicCard 
+            key={song.song_id}
+            songId={song.song_id}
+            title={song.title}
+            language={song.language}
+            genre={song.genre}
+            mood={song.mood}
+            runtime={song.runtime}
+            createdBy={song.create_by}
+            isFromChart={song.is_from_chart}
+            historyCount={song.history_count}
+            imageWords={song.image_words}
+            onDelete={() => handleDelete(song.song_id)}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="bg-[#111] w-full h-screen flex flex-col">
       <header className="shrink-0 h-50">
@@ -88,24 +135,11 @@ const PlayListPage = () => {
           </span>
         </div>
       </header>
-      
-      {songs.map((song) => {
-        <MusicCard 
-          key={song.song_id}
-          songId={song.song_id}
-          title={song.title}
-          language={song.language}
-          genre={song.genre}
-          mood={song.mood}
-          runtime={song.runtime}
-          createdBy={song.create_by}
-          isFromChart={song.is_from_chart}
-          historyCount={song.history_count}
-          imageWords={song.image_words}
-          onDelete={() => handleDelete(song.song_id)}
-        />
-      })}
-      
+
+      <main className="flex-1">
+        {renderContent()}
+      </main>
+
       <Footer />
     </div>
   );
