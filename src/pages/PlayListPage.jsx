@@ -2,6 +2,7 @@ import { deleteSong, getPlaylist } from "@/features/Playlist/api";
 import MusicCard from "@/features/Playlist/components/MusicCard"
 import Footer from "@/shared/components/Footer/Footer";
 import { useEffect, useState } from "react";
+import { Asterisk } from "lucide-react";
 
 // 언어 옵션 정의
 const LANGUAGES = [
@@ -121,10 +122,11 @@ const PlayListPage = () => {
         <div className="pt-16 flex gap-22 justify-between items-center">
           <p className="ml-7 font-medium text-4xl text-white">PlayList</p>
           <button
-            className="py-2 px-5 shrink-0 bg-orange-100 rounded-3xl text-2xl text-white mr-8"
+            className="flex items-center justify-center px-5 h-11 shrink-0 bg-orange-100 rounded-3xl text-2xl text-white mr-8 active:bg-transparent active:border-orange-100 active:border active:text-orange-100 transition-all "
             onClick={handleLanguageToggle}
           >
-            * {LANGUAGES[languageIndex].label}
+            <Asterisk />
+            <span className="leading-none">{LANGUAGES[languageIndex].label}</span>
           </button>
         </div>
         
