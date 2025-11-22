@@ -4,16 +4,11 @@ import Trash from "@/shared/components/icons/Trash"
 import AlbumImage from "@/shared/components/Album/AlbumImage";
 
 const MusicCard = ({
-  songId,
   title,
-  language,
   genre,
   mood,
   runtime,
-  createdBy,
-  isFromChart,
-  historyCount,
-  imageWords,
+  imageWords = [],
   onDelete
 }) => {
   const [isRevealed, setIsRevealed] = useState(false);
