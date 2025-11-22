@@ -41,12 +41,13 @@ const VocabularyPage = () => {
     const [language, setLanguage] = useState("English");
     const [selectedGenre, setSelectedGenre] = useState("");
     const [selectedMood, setSelectedMood] = useState("");
+    
 
-    const [words, setWords] = useState(Array(10).fill(""));
+    const [words, setWords] = useState(Array(10).fill({ word: "", meaning: "" }));
     const [isScrolled, setIsScrolled] = useState(false);
     
     const isFormComplete = name.trim() !== "" && selectedGenre !== "" && selectedMood !== "";
-    const hasValidWords = words.some(word => word.trim() !== "");
+    const hasValidWords = words.some(item => item.word.trim() !== "");
 
     const SCROLL_THRESHOLD = 10;
 
@@ -70,7 +71,7 @@ const VocabularyPage = () => {
     }, [isFormComplete]);
 
     const handleGenerate = async () => {
-        const validWords = words.filter(word => word.trim() !== "");
+        const validItems = words.filter(item => item.word.trim() !== "");
 
         const requestBody = {
             title: name,
@@ -78,8 +79,8 @@ const VocabularyPage = () => {
             genre: GENRE_MAP[selectedGenre], 
             mood: MOOD_MAP[selectedMood],
             created_by: "jena", 
-            words: validWords,
-            meaning: validWords.map(() => "") 
+            words: validItems.map(item => item.word),
+            meaning: validItems.map(item => item.meaning)
         };
 
         try {
@@ -99,7 +100,7 @@ const VocabularyPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-[#F1F2F1] flex flex-col items-center pt-30 pb-96 px-4 font-inter relative">
+        <div className="min-h-screen bg-[#F1F2F1] flex flex-col items-center pt-20 pb-45 px-4 font-inter relative">
             <h1 className="w-full max-w-[351px] text-[36px] font-medium text-[#111111] mb-3 text-left">
                 Create
             </h1>
@@ -132,7 +133,7 @@ const VocabularyPage = () => {
 
             {isFormComplete && isScrolled && (
                 <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] flex justify-center z-40 pb-10 pointer-events-none transition-opacity duration-300">
-                    <div className="w-full px-4 pointer-events-auto mb-24">
+                    <div className="w-full px-4 pointer-events-auto mb-20">
                         <button 
                             onClick={handleGenerate}
                             disabled={!hasValidWords}
@@ -149,7 +150,7 @@ const VocabularyPage = () => {
                 </div>
             )}
             
-            <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-50">
+            <div className="fixed bottom-0 left-0 w-full z-50">
                 <Footer />
             </div>
             

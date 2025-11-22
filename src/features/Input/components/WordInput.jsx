@@ -1,30 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import { get } from '@/shared/api/client';
 import { ENDPOINTS } from '@/shared/api/endpoints';
 
 
-const SingleWordInput = ({ index, value, onChange }) => {
+const SingleWordInput = ({ index, item, onChange, onSelectMeaning }) => {
     const [meanings, setMeanings] = useState([]); 
     const [showDropdown, setShowDropdown] = useState(false);
-    
     const wrapperRef = useRef(null);
+    const wordValue = item.word;
 
     const handleSearch = async () => {
-        if (!value.trim()) return; 
+        if (!wordValue.trim()) return; 
 
         try {
-            const response = await get(ENDPOINTS.GET_MEANING(value));
-            
+            const response = await get(ENDPOINTS.GET_MEANING(wordValue));
             if (response && response.meanings && response.meanings.length > 0) {
                 setMeanings(response.meanings);
             } else {
                 setMeanings(["검색 결과가 없습니다."]);
             }
-            setShowDropdown(true); 
-
+            setShowDropdown(true);
         } catch (error) {
-            console.error("단어 검색 중 오류가 발생했습니다:", error);
+            console.error("단어 뜻 조회 실패:", error);
             setMeanings(["오류가 발생했습니다."]);
             setShowDropdown(true);
         }
@@ -32,7 +29,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
 
     const handleChange = (e) => {
         onChange(index, e.target.value);
-        setShowDropdown(false);
+        setShowDropdown(false); 
     };
 
     useEffect(() => {
@@ -42,9 +39,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [wrapperRef]);
 
     return (
@@ -59,7 +54,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
             <div className="relative flex-grow">
                 <input
                     type="text"
-                    value={value}
+                    value={wordValue}
                     onChange={handleChange}
                     className="w-full p-3 h-9 bg-[#F5F5F5] rounded-xl text-sm text-[#262626] focus:outline-none transition-all duration-150"
                 />
@@ -71,6 +66,7 @@ const SingleWordInput = ({ index, value, onChange }) => {
                                 key={i}
                                 className="p-2 text-sm text-gray-600 hover:bg-orange-50 rounded-md cursor-pointer"
                                 onClick={() => {
+                                    onSelectMeaning(index, meaning);
                                     setShowDropdown(false); 
                                 }}
                             >
@@ -92,19 +88,27 @@ const SingleWordInput = ({ index, value, onChange }) => {
 };
 
 const WordInput = ({ words, setWords }) => {
-    const handleChange = (index, value) => {
+    const handleWordChange = (index, newWord) => {
         const newInputs = [...words];
-        newInputs[index] = value;
+        newInputs[index] = { ...newInputs[index], word: newWord, meaning: "" };
 
         const isLastBox = index === words.length - 1;
-        const isNotEmpty = value !== "";
+        const isNotEmpty = newWord !== "";
         const isUnderLimit = words.length < 20;
 
         if (isLastBox && isNotEmpty && isUnderLimit) {
-            newInputs.push("");
+            newInputs.push({ word: "", meaning: "" }); 
         }
 
         setWords(newInputs);
+    };
+
+    const handleMeaningSelect = (index, selectedMeaning) => {
+        const newInputs = [...words];
+        newInputs[index] = { ...newInputs[index], meaning: selectedMeaning };
+        setWords(newInputs);
+        
+        console.log(`[${index+1}번] 뜻 선택됨: ${selectedMeaning}`);
     };
 
     return (
@@ -115,12 +119,13 @@ const WordInput = ({ words, setWords }) => {
             </label>
 
             <div className="flex flex-col gap-3">
-                {words.map((text, index) => (
+                {words.map((item, index) => (
                     <SingleWordInput 
                         key={index} 
                         index={index} 
-                        value={text} 
-                        onChange={handleChange} 
+                        item={item} 
+                        onChange={handleWordChange} 
+                        onSelectMeaning={handleMeaningSelect} 
                     />
                 ))}
             </div>
