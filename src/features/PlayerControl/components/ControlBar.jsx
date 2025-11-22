@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+// src/features/PlayerControl/components/ControlBar.jsx
+import React, { useState, useRef } from 'react'; // useEffect 삭제
 
 import PrevIcon from '@/shared/components/icons/prev.svg';
 import NextIcon from '@/shared/components/icons/next.svg';
@@ -7,25 +8,19 @@ import PauseIcon from '@/shared/components/icons/stop.svg';
 import SoundLowIcon from '@/shared/components/icons/soundlow.svg';
 import SoundHighIcon from '@/shared/components/icons/soundhigh.svg';
 
-const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
+const ControlBar = ({ audioUrl, runtime }) => {
     const audioRef = useRef(null);
-
-    const [volume, setVolume] = useState(50);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(runtime);
     const [isPlaying, setIsPlaying] = useState(false);
-
-    useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.currentTime = 0;
-        }
-    }, [currentTime]);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(runtime || 0);
+    const [volume, setVolume] = useState(50);
 
     const handleLoadedMetadata = () => {
         if (audioRef.current) {
             setDuration(audioRef.current.duration);
         }
     };
+
     const handleTimeUpdate = () => {
         if (audioRef.current) {
             setCurrentTime(audioRef.current.currentTime);
@@ -39,6 +34,23 @@ const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
             audioRef.current.play();
         }
         setIsPlaying(!isPlaying);
+    };
+
+    const handleRewind = () => {
+        if (audioRef.current) {
+            const newTime = Math.max(audioRef.current.currentTime - 5, 0);
+            audioRef.current.currentTime = newTime;
+            setCurrentTime(newTime);
+        }
+    };
+
+    const handleForward = () => {
+        if (audioRef.current) {
+            const maxDuration = duration || audioRef.current.duration || 0;
+            const newTime = Math.min(audioRef.current.currentTime + 5, maxDuration);
+            audioRef.current.currentTime = newTime;
+            setCurrentTime(newTime);
+        }
     };
 
     const handleProgressChange = (e) => {
@@ -84,28 +96,27 @@ const ControlBar = ({ audioUrl, runtime, onPrev, onNext }) => {
                         background: `linear-gradient(to right, #EF521F ${(currentTime / duration) * 100}%, #D9D9D9 ${(currentTime / duration) * 100}%)`
                     }}
                 />
-
                 <div className='flex justify-between text-[12px] font-regular text-black font-inter'>
                     <span>{formatTime(currentTime)}</span>
-                    <span>- {formatTime(duration-currentTime)}</span>
+                    <span>- {formatTime(duration - currentTime)}</span>
                 </div>
             </div>
 
             <div className="flex items-center justify-center gap-15">
-                <button onClick={onPrev}>
-                    <img src={PrevIcon} alt="Previous" className="w-9 h-9" />
+                <button onClick={handleRewind} className="hover:opacity-70 transition-opacity active:scale-95">
+                    <img src={PrevIcon} alt="-5s" className="w-9 h-9" />
                 </button>
 
-                <button onClick={togglePlay}>
+                <button onClick={togglePlay} className="hover:scale-105 transition-transform">
                     <img 
-                        src={isPlaying ? PlayIcon : PauseIcon} 
-                        alt={isPlaying ? "Play" : "Stop"} 
+                        src={isPlaying ? PauseIcon : PlayIcon} 
+                        alt={isPlaying ? "Pause" : "Play"} 
                         className="w-9 h-9" 
                     />
                 </button>
 
-                <button onClick={onNext}>
-                    <img src={NextIcon} alt="Next" className="w-9 h-9" />
+                <button onClick={handleForward} className="hover:opacity-70 transition-opacity active:scale-95">
+                    <img src={NextIcon} alt="+5s" className="w-9 h-9" />
                 </button>
             </div>
 
