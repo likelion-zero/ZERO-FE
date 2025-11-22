@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
-import Album from '@/features/MusicChart/components/Album';
-import AlbumStack from '@/features/MusicChart/components/AlbumStack';
 import LoadingPage from '@/pages/LoadingPage';
 import ChartPage from '@/pages/ChartPage';
 import VocabularyPage from '@/pages/VocabularyPage';
