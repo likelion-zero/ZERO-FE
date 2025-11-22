@@ -1,15 +1,8 @@
 import { useState } from 'react';
 import Album from '@/features/MusicChart/components/Album';
-// ToDo: motion lint error 수정
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AlbumStack = () => {
-  const albums = [
-    { id: 1, title: 'fruits song', genre: '동요 | 신나는' },
-    { id: 2, title: 'summer vibes', genre: '팝 | 경쾌한' },
-    { id: 3, title: 'night jazz', genre: '재즈 | 차분한' },
-  ];
-
+const AlbumStack = ({ songs = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -19,11 +12,11 @@ const AlbumStack = () => {
 
     if (info.offset.y < -threshold){
       setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % albums.length);
+      setCurrentIndex((prev) => (prev + 1) % songs.length);
     } else if (info.offset.y > threshold) {
       // 아래로 스와이프
       setDirection(-1);
-      setCurrentIndex((prev) => (prev - 1 + albums.length) % albums.length);
+      setCurrentIndex((prev) => (prev - 1 + songs.length) % songs.length);
     }
   };
 
@@ -98,7 +91,11 @@ const AlbumStack = () => {
           }}
           className='absolute inset-0 flex justify-center items-center z-10'
         >
-          <Album {...albums[currentIndex]} />
+          <Album
+            title={songs[currentIndex]?.title}
+            genre={`${songs[currentIndex]?.genre} | ${songs[currentIndex]?.mood}`}
+            imageWords={songs[currentIndex]?.image_words}
+          />
         </motion.div>
       </AnimatePresence>
     </div>
