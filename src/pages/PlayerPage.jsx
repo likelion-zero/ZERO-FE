@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ControlBar from '@/features/Playercontrol/components/ControlBar';
+import ControlBar from '@/features/PlayerControl/components/ControlBar';
 import Lyrics from '@/features/Lyrics/components/Lyrics';
 import TIcon from '@/shared/components/icons/T.svg';          
 import TFullIcon from '@/shared/components/icons/T_full.svg'; 
