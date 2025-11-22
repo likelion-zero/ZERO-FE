@@ -2,6 +2,7 @@ import AlbumStack from "@/features/MusicChart/components/AlbumStack";
 import Footer from "@/shared/components/Footer/Footer";
 import Reload from "@/shared/components/icons/Reload"
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { get } from "@/shared/api/client";
 import { ENDPOINTS } from "@/shared/api/endpoints";
 
@@ -68,9 +69,21 @@ const ChartPage = () => {
       <header className="shrink-0 h-28">
         <div className="pt-16 flex gap-22 justify-center items-center">
           <p className="ml-7 font-medium text-4xl text-white">Music Chart</p>
-          <button className="mr-8" onClick={fetchChart}>
-            <Reload />
-          </button>
+          <motion.button
+            className="mr-8 flex items-center justify-center"
+            onClick={fetchChart}
+            disabled={isLoading}
+            animate={{
+              rotate: isLoading ? -360 : 0,
+            }}
+            transition={{
+              duration: 1,
+              repeat: isLoading ? Infinity : 0,
+              ease: "linear",
+            }}
+          >
+            <Reload isLoading={isLoading} />
+          </motion.button>
         </div>
       </header>
 
