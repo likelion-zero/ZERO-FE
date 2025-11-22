@@ -94,9 +94,7 @@ const PlayerPage = () => {
                     <div className="flex-1 flex flex-col pt-4 gap-6 animate-fade-in">
                         <div className="flex items-center justify-between w-full relative z-20">
                             <div className="flex items-center gap-4">
-                                <div className="w-16 h-16 bg-white rounded-[10px] shadow-sm flex items-center justify-center text-xs text-gray-300">
-                                    Album
-                                </div>
+                                <AlbumImage className="w-16 h-16" />
                                 <div className="text-left">
                                     <h2 className="text-xl font-bold text-[#262626]">{songData.title}</h2>
                                     <p className="text-xs text-[#757575] mt-1">{songData.genre} | {songData.mood}</p>
@@ -119,10 +117,9 @@ const PlayerPage = () => {
 
                 <div className="mt-auto pt-6 w-full relative z-30">
                     <ControlBar 
+                        key={songData.audio_url}
                         audioUrl={songData.audio_url} 
                         runtime={songData.runtime}
-                        onPrev={() => console.log("Prev")}
-                        onNext={() => console.log("Next")}
                     />
                 </div>
             </div>
