@@ -92,6 +92,7 @@ const AlbumStack = ({ songs = [] }) => {
           className='absolute inset-0 flex justify-center items-center z-10'
         >
           <Album
+            songId={songs[currentIndex]?.song_id}
             title={songs[currentIndex]?.title}
             genre={`${songs[currentIndex]?.genre} | ${songs[currentIndex]?.mood}`}
             imageWords={songs[currentIndex]?.image_words}
