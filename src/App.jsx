@@ -11,15 +11,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 404주소 home으로 리다이렉팅 */}
-        <Route path="*" element={<Navigate to="/" replace />}/>
-
         <Route path="/" element={<VocabularyPage />} />
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/chart" element={<ChartPage />} />
         <Route path="/playlist" element={<PlayListPage />} />
         <Route path="/player/:songId" element={<PlayerPage />} />
 
+        <Route path="*" element={<Navigate to="/" replace />}/>
       </Routes>
     </BrowserRouter>
   )
